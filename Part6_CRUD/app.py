@@ -1,5 +1,7 @@
+# pip install flask-mysqlalchemy
+# pip install mysqlclient (Python 3 compatible)
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, abort
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy # pip install flask-sqlalchemy (py package used to connect to SQL relational db)
 from dotenv import load_dotenv
 import os
 
@@ -16,7 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://' + mysql_username + ':
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'sdf#$#dfjkhdf0SDJH0df9fd98343fdfu34rf'
 
-db.init_app(app)
+db.init_app(app) # pip install mysqlclient (Python 3 compatible)
 
 
 ### Models ###
@@ -38,7 +40,7 @@ class Patients(db.Model):
         self.zip_code = zip_code
         self.gender = gender
 
-    # this second function is for the API endpoints to return JSON 
+    # this second function is for the API endpoints to return JSON (need to be comma-separated)
     def to_json(self):
         return {
             'id': self.id,

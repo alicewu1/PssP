@@ -7,7 +7,7 @@
     - do pip install `pip install pymysql` 
     - and update mysql+mysqldb TO mysql+pymysql
 - .ENV file 
-    - be sure to put it in the rool directory, at the same the Part1_ Part6_ folders 
+    - be sure to put it in the root directory, at the same the Part1_ Part6_ folders 
 
 ## Details
 
