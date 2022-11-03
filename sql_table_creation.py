@@ -29,15 +29,15 @@ def droppingFunction_all(dbList, db_source):
 
 load_dotenv()
 
-GCP_MYSQL_HOSTNAME = os.getenv("GCP_MYSQL_HOSTNAME")
-GCP_MYSQL_USER = os.getenv("GCP_MYSQL_USERNAME")
-GCP_MYSQL_PASSWORD = os.getenv("GCP_MYSQL_PASSWORD")
-GCP_MYSQL_DATABASE = os.getenv("GCP_MYSQL_DATABASE")
+# GCP_MYSQL_HOSTNAME = os.getenv("GCP_MYSQL_HOSTNAME")
+# GCP_MYSQL_USER = os.getenv("GCP_MYSQL_USERNAME")
+# GCP_MYSQL_PASSWORD = os.getenv("GCP_MYSQL_PASSWORD")
+# GCP_MYSQL_DATABASE = os.getenv("GCP_MYSQL_DATABASE")
 
-# AZURE_MYSQL_HOSTNAME = os.getenv("AZURE_MYSQL_HOSTNAME")
-# AZURE_MYSQL_USER = os.getenv("AZURE_MYSQL_USERNAME")
-# AZURE_MYSQL_PASSWORD = os.getenv("AZURE_MYSQL_PASSWORD")
-# AZURE_MYSQL_DATABASE = os.getenv("AZURE_MYSQL_DATABASE")
+AZURE_MYSQL_HOSTNAME = os.getenv("AZURE_MYSQL_HOSTNAME")
+AZURE_MYSQL_USER = os.getenv("AZURE_MYSQL_USERNAME")
+AZURE_MYSQL_PASSWORD = os.getenv("AZURE_MYSQL_PASSWORD")
+AZURE_MYSQL_DATABASE = os.getenv("AZURE_MYSQL_DATABASE")
 
 
 ########
@@ -46,28 +46,29 @@ GCP_MYSQL_DATABASE = os.getenv("GCP_MYSQL_DATABASE")
 # db_azure = create_engine(connection_string_azure)
 
 # Connect to GCP [MYSQL INSTANCE]
-connection_string_gcp = f'mysql+pymysql://{GCP_MYSQL_USER}:{GCP_MYSQL_PASSWORD}@{GCP_MYSQL_HOSTNAME}:3306/{GCP_MYSQL_DATABASE}'
-connection_string_gcp
-db_gcp = create_engine(connection_string_gcp)
+connection_string_azure = f'mysql+pymysql://{AZURE_MYSQL_USER}:{AZURE_MYSQL_PASSWORD}@{AZURE_MYSQL_HOSTNAME}:3306/{AZURE_MYSQL_DATABASE}'
+connection_string_azure
+db_azure = create_engine(connection_string_azure)
 
 #### note to self, need to ensure server_paremters => require_secure_transport is OFF in Azure 
 
 ### show tables from databases
 # print(db_azure.table_names())
 # print(db_gcp.table_names())
-tableNames_gcp = db_gcp.table_names()
-tableNames_gcp
+tableNames_azure = db_azure.table_names()
+tableNames_azure
 
 
 # reoder tables: production_patient_conditions, production_patient_medications, production_medications, production_patients, production_conditions
 # tableNames_azure = ['production_patient_conditions', 'production_patient_medications', 'production_medications', 'production_patients', 'production_conditions']
-tableNames_gcp = ['production_patient_conditions', 'production_patient_medications', 'production_medications', 'production_patients', 'production_conditions']
+tableNames_azure = ['production_patient_conditions', 'production_patient_medications', 'production_medications', 'production_patients', 'production_conditions']
 
 
 # ### deletes all tables/everything, so you can start at clean slate
 # using Python to execute SQL language programmatically and more efficiently
-# droppingFunction_all(tableNames_azure, db_azure)
-droppingFunction_all(tableNames_gcp, db_gcp)
+
+droppingFunction_all(tableNames_azure, db_azure)
+# droppingFunction_all(tableNames_gcp, db_gcp)
 
 
 
@@ -92,7 +93,7 @@ create table if not exists production_patients (
 
 # Check bottom of script: db_gcp.execute(create_table_patients) # executes above command 
 
-#check GCP MySQL Instance Console: show tables;
+#check AZURE MySQL Instance Console: show tables;
 
 create_table_medications = """
 create table if not exists production_medications (
@@ -181,14 +182,14 @@ create table if not exists production_patient_social_determinants (
 """
 
 
-db_gcp.execute(create_table_patients)
-db_gcp.execute(create_table_medications)
-db_gcp.execute(create_table_conditions)
-db_gcp.execute(create_table_treatment_procedures)
-db_gcp.execute(create_table_social_determinants)
+db_azure.execute(create_table_patients)
+db_azure.execute(create_table_medications)
+db_azure.execute(create_table_conditions)
+db_azure.execute(create_table_treatment_procedures)
+db_azure.execute(create_table_social_determinants)
 
 
-db_gcp.execute(table_prod_patients_medications)
-db_gcp.execute(table_prod_patient_conditions)
-db_gcp.execute(table_prod_patient_treatment_procedures)
-db_gcp.execute(table_prod_patient_social_determinants)
+db_azure.execute(table_prod_patients_medications)
+db_azure.execute(table_prod_patient_conditions)
+db_azure.execute(table_prod_patient_treatment_procedures)
+db_azure.execute(table_prod_patient_social_determinants)

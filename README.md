@@ -3,29 +3,32 @@
 
 **This repo aims to:**
 - practice CRUD (CREATE, READ, UPDATE, DELETE): 4 essential operations for creating and managing persistent data elements, mainly in relational databases
-- continue using a MySQL instance I previously created in: **mysql-cloudmanaged** to create and style a patient self-service portal
+- Re-create a new MYSQL DB by following my **mysql-cloudmanaged** setup in Azure instead of GCP due to diminshed GCP credits
+- Create and style a patient self-service portal using the dummy data from **mysql-cloudmanaged** repo
 
 
 # TASKS:
-1. Create a new github repo called PssP in your github  
+1. Re-create my own cloud-managed MySql database in Azure (as seen in mysql-cloudmanaged)
+2. Reference code from Part6_CRUD in our HHA-504-2022 repo (https://github.com/hantswilliams/HHA-504-2022/tree/main/Part6_CRUD) 
+3. Create .ENV file in the root directory with new AZURE credentials/keys so the flask PssP app nows how to connect to the database 
+4. Update app.py to:
+- Include 3 new patient demographic fields to display in /patients and patient details page: dob, contact_mobile, contact_home
+- Update EDIT patient function to allow ability to edit 3 new demographic fields in the new edit modal window dialogue
+- Update the NEW patient function to allow ability to edit 3 new demographic fields in the new patient modal window dialogue
+ 
+5. OPTIONAL [COMPLETED]: Create an 'EDIT' functionality within the patients_details.html page - medications view
+- Edited patients_details.html to create the buttons and modal window
+- Edited app.py to create a endpoint for medications modal window 
 
-2. Copy the code (files, folders, subfolders) from Part6_CRUD in our HHA-504-2022 repo (https://github.com/hantswilliams/HHA-504-2022/tree/main/Part6_CRUD) 
+6. Create an IMAGES folder containing screenshots of:
+        - the app running on your browser on the /patients list page, showing dummy patients with the newly added demographics
+        - the app running on your browser on one of the patient details pages - showing some dummy patient details with the newly added demographics  
+        - the updated modal window for EDITING a patient from the /patients list view 
+        - the updated modal window for the NEW PATIENT action from the /patients list view
 
-3. Re-create your own cloud-managed mysql database (either in GCP or Azure) or re-use one if you already have one running, and execute the scripts located in Part5_DBs to create some testing data (https://github.com/hantswilliams/HHA-504-2022/tree/main/Part5_DBs)   
 
-4. Then create your .ENV file with the proper credentials/keys so the flask PssP app nows how to connect to the database 
-
-5. Then update the PssP code in the following ways: 
-Include in at least 3 additional patient demographic fields that are displayed in the /patients and patient details views (note, you may need to update your SQL schema depending on what you decide to use or not use)  
-Update the EDIT functionality to include the ability to also edit the 3 new fields in the edit modal window dialogue 
-Update the NEW PATIENT functionality to include the ability to also include the 3 new fields in the new patient modal window dialogue 
-OPTIONAL: attempt to replicate the 'EDIT' functionality within the medications detail view; I have provided the code currently within conditions, try and create a similar process 
-
-6. Include a new folder in the repo called IMAGES - this folder should contain the following screen shots: 
-        Screen shot of the app running on your browser on the /patients list page, showing dummy patients with the newly added demographics
-        Screen shot of the app running on your browser on one of the patient details pages - showing some dummy patient details with the newly added demographics  
-        Screen shot of the updated modal window for EDITING a patient from the /patients list view 
-        Screen shot of the updated modal window for the NEW PATIENT action from the /patients list view
+# setup_azure.md
+- contains instructions for how I setup a MySQL database in Azure
 
 
 # app.py
@@ -46,7 +49,8 @@ OPTIONAL: attempt to replicate the 'EDIT' functionality within the medications d
 -       pip install flask-mysqlalchemy
         pip install mysqlclient
 4. In terminal: Run Flask app using app.py script
--       python Part6_CRUD/app.py
+-       python CRUD/app.py
 5. Click "Running on: hostname" to view page
 6. Make sure table names and column names match exactly to schema
 7. Revise app.py to your previously created DB schema
+

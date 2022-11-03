@@ -14,16 +14,21 @@ import random # to create randomness
 
 load_dotenv()
 
-GCP_MYSQL_HOSTNAME = os.getenv("GCP_MYSQL_HOSTNAME")
-GCP_MYSQL_USER = os.getenv("GCP_MYSQL_USERNAME")
-GCP_MYSQL_PASSWORD = os.getenv("GCP_MYSQL_PASSWORD")
-GCP_MYSQL_DATABASE = os.getenv("GCP_MYSQL_DATABASE")
+AZURE_MYSQL_HOSTNAME = os.getenv("AZURE_MYSQL_HOSTNAME")
+AZURE_MYSQL_USERNAME = os.getenv("AZURE_MYSQL_USERNAME")
+AZURE_MYSQL_PASSWORD = os.getenv("AZURE_MYSQL_PASSWORD")
+AZURE_MYSQL_DATABASE = os.getenv("AZURE_MYSQL_DATABASE")
+
+# GCP_MYSQL_HOSTNAME = os.getenv("GCP_MYSQL_HOSTNAME")
+# GCP_MYSQL_USER = os.getenv("GCP_MYSQL_USERNAME")
+# GCP_MYSQL_PASSWORD = os.getenv("GCP_MYSQL_PASSWORD")
+# GCP_MYSQL_DATABASE = os.getenv("GCP_MYSQL_DATABASE")
 
 
 
 ########
 
-connection_string = f'mysql+pymysql://{GCP_MYSQL_USER}:{GCP_MYSQL_PASSWORD}@{GCP_MYSQL_HOSTNAME}:3306/{GCP_MYSQL_DATABASE}'
+connection_string = f'mysql+pymysql://{AZURE_MYSQL_USERNAME}:{AZURE_MYSQL_PASSWORD}@{AZURE_MYSQL_HOSTNAME}:3306/{AZURE_MYSQL_DATABASE}'
 db = create_engine(connection_string)
 
 
@@ -284,9 +289,9 @@ for index, row in cpt_codes_1k.iterrows():
     proceduresRowCount += 1
     print('proceduresRowCount: ', proceduresRowCount)
     db.execute(insertQuery, (row['com.medigy.persist.reference.type.clincial.CPT.code'], row['label']))
-    print("inserted row db: ", index)
+    print("inserted row: ", index)
     ## stop once we have 100 rows
-    if startingRow == 100:
+    if proceduresRowCount == 100:
         break
 
 # query dbs to see if data is there
