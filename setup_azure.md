@@ -15,7 +15,7 @@
 
 # 2. Network:
 - Connectivity Method: Public access
-- Firewall Rules: Add current client IP address (173.68.135.133)
+- Firewall Rules: Add current client IP address (xxx.xx.xxx.xxx)
 
 # 3. Deploying Server:
 - In **Server Parameters** tab: Toggle OFF **Require_Secure_Transport**
